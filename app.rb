@@ -30,3 +30,26 @@ get "/" do
     erb :index
 end
 
+get "/user" do
+  @users = User.all
+  erb :users
+end
+
+get "/user/new" do
+  erb :new_user
+end
+
+post "/user/logout" do
+  log_out
+  redirect to "/"
+end
+
+post "/user/new" do
+  @user = User.first(:email => params[:email])
+  if not @user
+    @user = User.create(:email => params[:email], :songs => request.cookies["songs"] || "")
+  end
+  log_in(params[:email])
+  redirect to "/"
+end
+
