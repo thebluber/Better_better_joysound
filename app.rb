@@ -53,3 +53,23 @@ post "/user/new" do
   redirect to "/"
 end
 
+get "/remembered" do
+  if not get_songs.empty?
+    @remembered = Song.all(:number => get_songs, :order => :artist)
+  end
+  erb :remembered
+end
+
+post "/song/:id/remember" do
+  songs = get_songs.push(params[:id])
+  set_songs(songs)
+  !request.xhr? ? redirect(back) : "Remembered!"
+end
+
+post "/song/:id/forget" do
+  songs = get_songs
+  songs = songs.reject{|el| el == (params[:id])}
+  set_songs(songs)
+  !request.xhr? ? redirect(back) : "Forgotten!"
+end
+
