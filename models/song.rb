@@ -9,6 +9,5 @@ class Song
   property :genre, String, :length => 256
   property :utaidashi, String, :length => 256
 
-  has n, :keywords, :through => Resource
 end
 

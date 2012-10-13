@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Joysound</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js" type="text/javascript"></script>
+        <script src="<%= url "/site.js" %>"></script>
+        <link rel="stylesheet" type="text/css" href="bootstrap.min.css">
+<style type="text/css">
+        tr.even td,tr:nth-child(even) {background:#e5ecf9;}
+        table{width:100%;}
+        tr {width: 100%;}
+        td {width: 20%;}
+
+        #title {
+          width:70%;
+          float:left;
+        }
+
+        #user {
+          text-align: right;
+          width: 25%;
+          float:right;
+        }
+
+        #main {
+          clear:both;
+        }
+        #message {
+          display: none;
+        }
+
+</style>
+  </head>
+
+  <body>
+    <div class="row-fluid">
+      <div class="span10 offset1">
+        
+      <div id="title">
+        <h1>Joysound-Suche</h1 >
+      </div>
+      <div id="user">
+      <% if logged_in? %>
+        <h4><%=  current_user.email%></h4>
+        <form method="post" action="<%= url '/user/logout' %>">
+          <button>Abmelden</button>
+        </form>
+      <% else %>
+       <p>
+          <a href='<%= url "/user/new" %>'>Anmelden</a>
+        </p>
+      <% end %>
+      </div>
+      <div id="main">
+        <%= yield %>
+      </div>
+  
+      </div>
+    </div>
+  </body>
+
+</html>
