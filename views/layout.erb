@@ -52,6 +52,30 @@
       <% end %>
       </div>
       <div id="main">
+        <form onsubmit="return osterhase(this)" action="<%= url '/' %>" method="get">
+          <input id="query" name="query" value="<%= params[:query] %>"/>
+          <button>Suchen!</button>
+        </form>
+        <div class="row-fluid">
+        <% @genre_list = [["J-POP", "男"], ["アニメ", "冒険アニメ", "ギャグ・コメディ南国少年パプワくん", "ファミリーアニメ", "魔法・ファンタジー夢のクレヨン王国"], ["演歌", "男", "女"], ["CM", "通信・携帯電話J-POP", "グループおさわり探偵なめこ栽培キット"], ["洋楽", "グループ"], ["童謡・唱歌・合唱・他", "民謡"]] %>
+        <% @genre_list.each do |all_genre|%>
+          <div class="span3"> 
+            <% main_genre = all_genre[0]%>
+            <p class="MainGenre">
+            <% link = "/search/#{CGI::escape(main_genre)}"%>
+            <a href="<%= url link%>"><%= main_genre %></a>
+            </p>
+            <ul>
+              <% 1.upto(all_genre.length - 1).each do |num|%>
+                <% link = "search/#{CGI::escape(main_genre + "/" + all_genre[num])}" %>
+                <li class="SubGenre">
+                <a href="<%= url link%>"><%= all_genre[num] %></a>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+       </div>
         <%= yield %>
       </div>
   

@@ -31,7 +31,6 @@ get "/" do
     end
     @remembered ||= []
     @count[:remembered] = @count[:all] - @results.size
-    @genre_list = seperate_genre
     erb :index
 end
 
@@ -45,7 +44,7 @@ get "/search/:genre" do
     end
     @remembered ||= []
     @count[:remembered] = @count[:all] - @results.size
-  erb :results
+  erb :index
 end
 
 get "/user" do
