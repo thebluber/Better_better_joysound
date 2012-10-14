@@ -4,7 +4,7 @@
     <title>Joysound</title>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js" type="text/javascript"></script>
         <script src="<%= url "/site.js" %>"></script>
-        <link rel="stylesheet" type="text/css" href="bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="/bootstrap.min.css">
 <style type="text/css">
         tr.even td,tr:nth-child(even) {background:#e5ecf9;}
         table{width:100%;}
@@ -53,8 +53,15 @@
       </div>
       <div id="main">
         <form onsubmit="return osterhase(this)" action="<%= url '/' %>" method="get">
-          <input id="query" name="query" value="<%= params[:query] %>"/>
-          <button>Suchen!</button>
+          <div class="input-append">
+          <select name="kind" class="span1">
+            <option value="title">Titel</option>
+            <option value="artist" <%= "selected='1'" if params[:kind] == "artist" %>>Künstler</option>
+          </select>
+          <input  class="span2" id="query" name="query" value="<%= params[:query] %>"/>
+
+          <button class="btn btn-primary">Suchen!</button>
+          </div>
         </form>
         <div class="row-fluid">
         <% @genre_list = [["J-POP", "男"], ["アニメ", "冒険アニメ", "ギャグ・コメディ南国少年パプワくん", "ファミリーアニメ", "魔法・ファンタジー夢のクレヨン王国"], ["演歌", "男", "女"], ["CM", "通信・携帯電話J-POP", "グループおさわり探偵なめこ栽培キット"], ["洋楽", "グループ"], ["童謡・唱歌・合唱・他", "民謡"]] %>

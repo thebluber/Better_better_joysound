@@ -12,13 +12,14 @@
     <% @results.each do |result| %>
       <tr>
         <td><%= result.title %></td>
-        <td><a href="<%=url "/?query=#{CGI::escape(result.artist)}"%>"><%= result.artist %></a></td>
+        <td><a href="<%=url "/?query=#{CGI::escape(result.artist)}&kind=artist"%>"><%= result.artist %></a></td>
         <td><%= result.utaidashi %></td>
-        <td><b><%= result.number %></b></td>
+        <td><b><%= result.wii_number %></b></td>
         <td>
-        <form method="post" action="<%= url "/song/#{result.number}/remember"%>"><button class="remember" value="<%=result.number %>"> Merken</button></form></td>
+        <form method="post" action="<%= url "/song/#{result.wii_number}/remember"%>"><button class="remember" value="<%=result.wii_number %>"> Merken</button></form></td>
     <% end %>
   </table>
+  <%= will_paginate @results, :renderer => BootstrapPagination::Sinatra %>
 <% end %>
 <% if @ongoing %>
   <img style="margin-left: auto; margin-right:auto; display:block;" src="/ajax-loader.gif" />

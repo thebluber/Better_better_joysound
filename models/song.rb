@@ -5,7 +5,7 @@ class Song
   property :id,   Serial
   property :title, String, :length => 256
   property :artist, String, :length => 256
-  property :number, String, :unique => true
+  property :wii_number, String, :unique => true
   property :genre, String, :length => 256
   property :utaidashi, String, :length => 256
 

@@ -1,3 +1,4 @@
+
 <% if @remembered and not @remembered.empty? then %>
   <h2>Gemerkte Songs</h2>
   <h3><a href='<%= url "/song/txt" %>'>Als Textdatei herunterladen</a></h3>
@@ -12,11 +13,11 @@
     <% @remembered.each do |result| %>
       <tr>
         <td><%= result.title %></td>
-        <td><a href="<%=url "/?query=#{CGI::escape(result.artist)}"%>"><%= result.artist %></a></td>
+        <td><a href="<%=url "/?query=#{CGI::escape(result.artist)}&kind=artist"%>"><%= result.artist %></a></td>
         <td><%= result.utaidashi %></td>
-        <td><b><%= result.number %></b></td>
+        <td><b><%= result.wii_number %></b></td>
         <td>
-        <form method="post" action="<%= url "/song/#{result.number}/forget"%>"><button class='forget' value="<%= result.number%>">Vergessen</button></form></td>
+        <form method="post" action="<%= url "/song/#{result.wii_number}/forget"%>"><button class='forget' value="<%= result.wii_number%>">Vergessen</button></form></td>
     <% end %>
   </table>
 <% end %>

@@ -7,43 +7,62 @@ require './models/keyword.rb'
 require './models/song.rb'
 require './models/genre.rb'
 require './models/joysound.rb'
-require './helper/helper.rb'
 require 'cgi'
+require 'will_paginate'
+require 'will_paginate/data_mapper'
+require "will_paginate-bootstrap"
+require './helper/helper.rb'
+
 enable :sessions
-DataMapper.setup(:default, ENV['DATABASE_URL'] || "sqlite:test.db")
+DataMapper.setup(:default, ENV['DATABASE_URL'] || "sqlite:songs.db")
 DataMapper.auto_upgrade!
 #DataMapper.auto_migrate!
 
 get "/" do
-    if !session["genre_list"]
-      session["genre_list"] = seperate_genre
-    end
     if params[:query] then
       params[:query].downcase!
-      @results = search(params[:query])
+      if params[:kind] == "title"
+        result = search_by_title(params[:query]) 
+        @results = result[:songs]
+        @results_size = result[:size]
+      elsif params[:kind] == "artist"
+        result = search_by_artist(params[:query]) 
+        @results = result[:songs]
+        @results_size = result[:size]
+      end
       puts @results
     end
     @results ||= []
-    @count = {:all => @results.size}
+    @results_size ||= 0
+    @count = {:all => @results_size}
     if not get_songs.empty?
-      @remembered = Song.all(:number => get_songs, :order => :artist)
-      @results -= @remembered if @results
+      @remembered = Song.all(:wii_number => get_songs, :order => :artist)
+      if @results
+        @results -= @remembered
+        @results_size -= @remembered.length
+      end
     end
     @remembered ||= []
-    @count[:remembered] = @count[:all] - @results.size
+    @count[:remembered] = @count[:all] - @results_size
     erb :index
 end
 
 get "/search/:genre" do
-  @results = search_by_genre(CGI::unescape(params[:genre]))
+  result = search_by_genre(CGI::unescape(params[:genre]))
+  @results = result[:songs]
+  @results_size = result[:size]
     @results ||= []
-    @count = {:all => @results.size}
+    @results_size ||= 0
+    @count = {:all => @results_size}
     if not get_songs.empty?
-      @remembered = Song.all(:number => get_songs, :order => :artist)
-      @results -= @remembered if @results
+      @remembered = Song.all(:wii_number => get_songs, :order => :artist)
+      if @results
+        @results -= @remembered
+        @results_size -= @remembered.length
+      end
     end
     @remembered ||= []
-    @count[:remembered] = @count[:all] - @results.size
+    @count[:remembered] = @count[:all] - @results_size
   erb :index
 end
 
@@ -72,7 +91,7 @@ end
 
 get "/remembered" do
   if not get_songs.empty?
-    @remembered = Song.all(:number => get_songs, :order => :artist)
+    @remembered = Song.all(:wii_number => get_songs, :order => :artist)
   end
   erb :remembered
 end
@@ -93,4 +112,8 @@ end
 get "/genre" do
  @genre_list = seperate_genre
  @genre_list.to_s
+end
+
+get "/count_result" do
+  search_by_genre("アニメ").to_s
 end

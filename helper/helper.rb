@@ -1,12 +1,32 @@
 helpers do
-  def search(keyword)
-    keyword = "%#{keyword}%" 
-    Song.all(:title.like => keyword) + Song.all(:artist.like => keyword)
+  def search_by_title(title)
+    title = "%#{title}%" 
+    result = {}
+    result[:songs] = Song.paginate(:page => params[:page],
+                      :per_page   => 20,
+                      :conditions => { :title.like => title })
+    result[:size] = Song.all(:title.like => title).length
+    result
+  end
+
+  def search_by_artist(artist)
+    artist = "%#{artist}%" 
+    result = {}
+    result[:songs] = Song.paginate(:page => params[:page],
+                      :per_page   => 20,
+                      :conditions => { :artist.like => artist })
+    result[:size] = Song.all(:artist.like => artist).length
+    result
   end
 
   def search_by_genre(genre)
     genre = "%#{genre}%"
-    Song.all(:genre.like => genre)
+    result = {}
+    result[:songs] = Song.paginate(:page => params[:page],
+                      :per_page   => 20,
+                      :conditions => { :genre.like => genre })
+    result[:size] = Song.all(:genre.like => genre).length
+    result
   end
 
   def logged_in?
