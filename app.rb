@@ -4,13 +4,14 @@ require "sinatra"
 require 'data_mapper'
 require './models/user.rb'
 require './models/song.rb'
-require './models/joysound.rb'
 require 'cgi'
 require 'will_paginate'
 require 'will_paginate/data_mapper'
 require "will_paginate-bootstrap"
 require './helper/helper.rb'
-
+require "open-uri"
+require "nokogiri"
+require "./update.rb"
 enable :sessions
 DataMapper.setup(:default, ENV['DATABASE_URL'] || "sqlite:songs.db")
 DataMapper.auto_upgrade!
