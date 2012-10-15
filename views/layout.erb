@@ -57,17 +57,11 @@
         </div>
       </div>
 
-    <header class="hero-unit">
-      <div class="container">
-        <h1>Joysound-Suche</h1>
-      </div>
-    </header>
-
         <% @genre_list = [["J-POP", "男", "女", "グループ"], ["アニメ", "スポーツ・レース", "学園", "ヒーロー・ヒロイン", "ロボット", "ファミリー", "冒険", "怪盗・探偵・刑事", "SF", "特撮・戦隊", "動物・虫等", "映画", "ギャグ・コメディ", "魔法・ファンタジー", "ゲーム", "その他"], ["洋楽", "男", "女", "グループ"], ["映画・ミュージカル", "洋画", "邦画", "アジア", "アニメ", "ミュージカル"], ["CLUB・DANCE", "CLUB・TRANCE・TECHNO", "R&B・HIP HOP", "REGGAE", "ユーロビート"], ["TV・ラジオ", "ドラマ", "ニュース・教養・ドキュメント", "音楽・バラエティ", "ラジオ"], ["CM", "飲料・酒類", "車・バイク", "食品・菓子", "金融・保険", "美容・薬品・生活用品", "住居・不動産・引越し", "家電・デジタル機器", "スポーツ・アミューズメント", "交通機関・旅行", "教育・マスコミ", "通信・携帯電話", "お店", "その他"], ["スポーツ・応援歌", "野球", "サッカー", "プロレス", "格闘技(K-1・プライド・他)", "モータースポーツ・競馬", "その他"], ["JAZZ・クラシック・インスト", "JAZZ", "クラシック", "イージーリスニング", "フュージョン"], ["童謡・唱歌・合唱・他", "童謡", "唱歌", "合唱", "ちびっこ", "民謡", "軍歌等"], ["演歌", "男", "女", "グループ"], ["ワールド", "アジア", "ラテン", "外国民謡", "その他", "国歌"], ["アレンジ・リミックス・他", "オルゴール", "アレンジ・リミックス", "ポケメロオリジナルアレンジ", "メドレー"], ["イベント", "ウェディング", "X'mas", "卒業"], ["効果音・Voice", "Voice", "効果音"], ["VOCALOID", "初音ミク", "GUMI", "鏡音リン", "鏡音レン", "巡音ルカ", "神威がくぽ", "KAITO", "MEIKO", "氷山キヨテル", "Lily", "歌愛ユキ", "開発コード miki", "猫村いろは", "弱音ハク", "亞北ネル", "初音ミクオ", "アイスマウンテン", "IA", "結月ゆかり", "CUL", "VY1", "VY2", "蒼姫ラピス", "その他"]] %>
     <div class="container-fluid">
-      <div class="row-fluid">
+    <header>
 
-        <ul class="nav nav-list affix bs-docs-sidenav span2 offset1">
+        <ul class="nav nav-list affix bs-docs-sidenav span4">
         <% @genre_list.each do |all_genre|%>
               <% main_genre = all_genre[0]%>
               <% link = "/search/#{CGI::escape(main_genre)}"%>
@@ -75,15 +69,22 @@
         <% end %>
         </ul>
 
+        <div class="span8 hero-unit">
+          <h1>Joysound-Suche</h1>
+        </div>
+    </header>
+
 
       <div class="row-fluid">
-        <div class="span8 offset3">
+        <div class="span9">
           <%= yield %>
         </div>
 
       </div>
 
       </div>
+    </div>
+    
     </div>
 
     <footer class="footer">

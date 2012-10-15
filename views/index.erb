@@ -3,6 +3,10 @@
           <%= erb :results %>
         <% end %>
         <% if @results.length == 0 %>
+          <div class="offset1">
+            <p class="text-error">0 Ergebnis</p>
+            <p class="text-muted">Gib Titel und Künstlernamen in das Suchfeld ein und los geht's!</p>
+          </div>
         <% end %>
       </div>
       <div id="remembered">

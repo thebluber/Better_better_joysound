@@ -3,9 +3,7 @@ require "rubygems"
 require "sinatra"
 require 'data_mapper'
 require './models/user.rb'
-require './models/keyword.rb'
 require './models/song.rb'
-require './models/genre.rb'
 require './models/joysound.rb'
 require 'cgi'
 require 'will_paginate'
