@@ -18,6 +18,7 @@ DataMapper.setup(:default, ENV['DATABASE_URL'] || "sqlite:songs.db")
 DataMapper.auto_upgrade!
 #DataMapper.auto_migrate!
 
+
 get "/" do
     if params[:query] then
       params[:query].downcase!
@@ -38,7 +39,7 @@ get "/" do
     if not get_songs.empty?
       @remembered = Song.all(:wii_number => get_songs, :order => :artist)
       if @results
-        @results -= @remembered
+      #  @results -= @remembered
         @results_size -= @remembered.length
       end
     end
@@ -57,7 +58,7 @@ get "/search/:genre" do
     if not get_songs.empty?
       @remembered = Song.all(:wii_number => get_songs, :order => :artist)
       if @results
-        @results -= @remembered
+      #  @results -= @remembered
         @results_size -= @remembered.length
       end
     end
@@ -109,11 +110,15 @@ post "/song/:id/forget" do
   !request.xhr? ? redirect(back) : "Forgotten!"
 end
 
+get "/song/txt" do
+  attachment("joysound.txt")
+  @remembered = Song.all(:wii_number => request.cookies["songs"].split(","))
+  @remembered.map{|song| "#{song.artist} - #{song.title}: #{song.wii_number}"}.join("\n")
+end
+
+
 get "/genre" do
  @genre_list = seperate_genre
  @genre_list.to_s
 end
 
-get "/count_result" do
-  search_by_genre("アニメ").to_s
-end

@@ -1,7 +1,7 @@
 <% if @results and not @results.empty? then %>
   <h2>Gesuchte Songs</h2>
   <h3><%= "#{@count[:all]} Ergebnisse, #{@count[:remembered]} davon gemerkt." %></h3>
-  <table>
+  <table class="table table-striped">
   <tr>
     <td>Title</td>
     <td>Artist</td>

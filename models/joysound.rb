@@ -106,5 +106,21 @@ class Joysound
     end
     thread_list.each {|x| x.join}
   end
+
+  def self.get_genre
+    url = "http://joysound.com/ex/search/"
+    html = Nokogiri::HTML(open(url))
+    selectors = [".clearfix:nth-child(2) .genreBoxAreaInner:nth-child(1) a", ".clearfix:nth-child(2) .genreBoxAreaInner:nth-child(2) a", ".clearfix:nth-child(2) .genreBoxAreaInner:nth-child(3) a",
+                ".clearfix:nth-child(3) .genreBoxAreaInner:nth-child(1) a", ".clearfix:nth-child(3) .genreBoxAreaInner:nth-child(2) a", ".clearfix:nth-child(3) .genreBoxAreaInner:nth-child(3) a",
+                ".clearfix:nth-child(4) .genreBoxAreaInner:nth-child(1) a", ".clearfix:nth-child(4) .genreBoxAreaInner:nth-child(2) a", ".clearfix:nth-child(4) .genreBoxAreaInner:nth-child(3) a",
+                ".clearfix:nth-child(5) .genreBoxAreaInner:nth-child(1) a", ".clearfix:nth-child(5) .genreBoxAreaInner:nth-child(2) a", ".clearfix:nth-child(5) .genreBoxAreaInner:nth-child(3) a", 
+                ".clearfix:nth-child(6) .genreBoxAreaInner:nth-child(1) a", ".clearfix:nth-child(6) .genreBoxAreaInner:nth-child(2) a", ".clearfix:nth-child(6) .genreBoxAreaInner:nth-child(3) a",
+                ".clearfix:nth-child(7) .genreBoxAreaInner:nth-child(1) a"]
+    genre_list = []
+    selectors.each do |selector|
+      genre_list << html.css(selector).map{|genre| genre.text}
+    end  
+    genre_list
+  end
 end
 

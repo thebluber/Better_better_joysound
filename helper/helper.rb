@@ -61,20 +61,4 @@ helpers do
     response.set_cookie("songs", :value => nil, :path => "/", :domain => "")
   end
 
-  def seperate_genre
-    genre_hash = {}
-    genre_list = Song.all.map{|song| song.genre.split("/")}.uniq
-    genre_list.each do |lis|
-      if genre_hash[lis[0]]
-        first = lis.shift
-        genre_hash[first] += lis
-        genre_hash[first] = genre_hash[first].uniq
-      else
-        genre_hash[lis.shift] = lis
-      end
-    end
-    genre_list = []
-    genre_hash.each{|k, v| genre_list << [k, v].flatten}
-    genre_list
-  end
 end
