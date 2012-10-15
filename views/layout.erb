@@ -5,6 +5,7 @@
         <script src="http://code.jquery.com/jquery-latest.js"></script>
         <script src="<%= url "/site.js" %>"></script>
         <link rel="stylesheet" type="text/css" href="/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="/style.css">
   </head>
 
   <body>
@@ -66,19 +67,28 @@
     <div class="container-fluid">
       <div class="row-fluid">
 
-        <ul class="nav nav-list affix span2 ">
+        <ul class="nav nav-list affix bs-docs-sidenav span2 offset1">
         <% @genre_list.each do |all_genre|%>
               <% main_genre = all_genre[0]%>
               <% link = "/search/#{CGI::escape(main_genre)}"%>
               <li><a href="<%= url link%>"><strong><%= main_genre %></strong></a></li>
         <% end %>
         </ul>
+
+
+      <div class="row-fluid">
+        <div class="span8 offset3">
+          <%= yield %>
+        </div>
+
+      </div>
+
       </div>
     </div>
 
-    <div class="container">
-      <div class="row">
-
+    <footer class="footer">
+      <div class="container">
+        <div class="row">
         <% @genre_list.each do |all_genre|%>
         <div class="span3">
               <% main_genre = all_genre[0]%>
@@ -101,15 +111,9 @@
         </div>
         <% end %>
 
-      </div>
-
-      <div class="row">
-        <div>
-          <%= yield %>
         </div>
-
       </div>
-    </div>
+    </footer>
   </body>
 
 </html>
