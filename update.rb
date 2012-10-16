@@ -3,7 +3,7 @@
 
 class Update
 
-  def self.get_new_titles_no_thread
+  def self.Update.get_new_titles_no_thread
     urls = ["http://joysound.com/ex/st/wii/parts/add_ichiran.htm", "http://joysound.com/ex/st/wii/parts/new_ichiran.htm"]
     title = []
     urls.each do |url|
